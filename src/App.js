@@ -26,15 +26,15 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const temperature = await axios.get("https://green-house-server-53a4.onrender.com/temperature");
-        const humidity = await axios.get("https://green-house-server-53a4.onrender.com/humidity");
-        const gas = await axios.get("https://green-house-server-53a4.onrender.com/gas");
-        const pressure = await axios.get("https://green-house-server-53a4.onrender.com/pressure");
-        const solarPower = await axios.get("https://green-house-server-53a4.onrender.com/solarPower");
-        const soilMoisture1 = await axios.get("https://green-house-server-53a4.onrender.com/soilMoisture1");
-        const soilMoisture2 = await axios.get("https://green-house-server-53a4.onrender.com/soilMoisture2");
-        const pumpPower = await axios.get("https://green-house-server-53a4.onrender.com/pumpPower");
-        const dripperPower = await axios.get("https://green-house-server-53a4.onrender.com/dripperPower");
+        const temperature = await axios.get("http://localhost:5000/temperature");
+        const humidity = await axios.get("http://localhost:5000/humidity");
+        const gas = await axios.get("http://localhost:5000/gas");
+        const pressure = await axios.get("http://localhost:5000/pressure");
+        const solarPower = await axios.get("http://localhost:5000/solarPower");
+        const soilMoisture1 = await axios.get("http://localhost:5000/soilMoisture1");
+        const soilMoisture2 = await axios.get("http://localhost:5000/soilMoisture2");
+        const pumpPower = await axios.get("http://localhost:5000/pumpPower");
+        const dripperPower = await axios.get("http://localhost:5000/dripperPower");
 
         setData({
           temperature: temperature.data.temperature,
@@ -60,7 +60,7 @@ const App = () => {
   // Handle Button 1 ON/OFF
   const handleButton1 = async (state) => {
     try {
-      await axios.post("https://green-house-server-53a4.onrender.com/buttons", { button: 1, state: state });
+      await axios.post("http://localhost:5000/buttons", { button: 1, state: state });
       setButton1State(state);
     } catch (error) {
       console.error("Error sending button1 state:", error);
@@ -70,7 +70,7 @@ const App = () => {
   // Handle Button 2 ON/OFF
   const handleButton2 = async (state) => {
     try {
-      await axios.post("https://green-house-server-53a4.onrender.com/buttons", { button: 2, state: state });
+      await axios.post("http://localhost:5000/buttons", { button: 2, state: state });
       setButton2State(state);
     } catch (error) {
       console.error("Error sending button2 state:", error);
