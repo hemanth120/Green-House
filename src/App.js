@@ -26,26 +26,27 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const temperature = await axios.get("https://green-house-server-53a4.onrender.com/temperature");
-        const humidity = await axios.get("https://green-house-server-53a4.onrender.com/humidity");
-        const gas = await axios.get("https://green-house-server-53a4.onrender.com/gas");
-        const pressure = await axios.get("https://green-house-server-53a4.onrender.com/pressure");
-        const solarPower = await axios.get("https://green-house-server-53a4.onrender.com/solarPower");
-        const soilMoisture1 = await axios.get("https://green-house-server-53a4.onrender.com/soilMoisture1");
-        const soilMoisture2 = await axios.get("https://green-house-server-53a4.onrender.com/soilMoisture2");
-        const pumpPower = await axios.get("https://green-house-server-53a4.onrender.com/pumpPower");
-        const dripperPower = await axios.get("https://green-house-server-53a4.onrender.com/dripperPower");
+        const endpoints = [
+          "temperature", "humidity", "gas", "pressure",
+          "solarPower", "soilMoisture1", "soilMoisture2",
+          "pumpPower", "dripperPower"
+        ];
+        const responses = await Promise.all(
+          endpoints.map(endpoint =>
+            axios.get(https://green-house-server-53a4.onrender.com/${endpoint})
+          )
+        );
 
         setData({
-          temperature: temperature.data.temperature,
-          humidity: humidity.data.humidity,
-          gas: gas.data.gas,
-          pressure: pressure.data.pressure,
-          solarPower: solarPower.data.solarPower,
-          soilMoisture1: soilMoisture1.data.soilMoisture1,
-          soilMoisture2: soilMoisture2.data.soilMoisture2,
-          pumpPower: pumpPower.data.pumpPower,
-          dripperPower: dripperPower.data.dripperPower,
+          temperature: responses[0].data.temperature,
+          humidity: responses[1].data.humidity,
+          gas: responses[2].data.gas,
+          pressure: responses[3].data.pressure,
+          solarPower: responses[4].data.solarPower,
+          soilMoisture1: responses[5].data.soilMoisture1,
+          soilMoisture2: responses[6].data.soilMoisture2,
+          pumpPower: responses[7].data.pumpPower,
+          dripperPower: responses[8].data.dripperPower,
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -81,28 +82,44 @@ const App = () => {
     <div className="app-container">
       <header className="text-center">
         <h1 className="title">Greenhouse Monitoring Dashboard</h1>
+        <div className="header-background">
+          <img src="/images/team.jpg" alt="Greenhouse" className="header-image" />
+        </div>
       </header>
 
-      <div className="grid-container">
-        {/* Sensor Cards */}
-        <Card title="Solar Power" value={`${data.solarPower} W`} icon={<WiSolarEclipse size={50} />} />
-        <Card title="Soil Moisture 1" value={`${data.soilMoisture1} %`} icon={<FaSeedling size={50} />} />
-        <Card title="Soil Moisture 2" value={`${data.soilMoisture2} %`} icon={<FaSeedling size={50} />} />
-        <Card title="Temperature" value={`${data.temperature} °C`} icon={<WiThermometer size={50} />} />
-        <Card title="Humidity" value={`${data.humidity} %`} icon={<WiHumidity size={50} />} />
-        <Card title="Pressure" value={`${data.pressure} hPa`} icon={<WiBarometer size={50} />} />
-        <Card title="Gas" value={`${data.gas} ppm`} icon={<FaGasPump size={50} />} />
-        <Card title="Pump Power" value={`${data.pumpPower} W`} icon={<FaWater size={50} />} />
-        <Card title="Dripper Power" value={`${data.dripperPower} W`} icon={<FaWater size={50} />} />
-      </div>
+      <section>
+        <h2 className="section-title">BME680 Values:</h2>
+        <div className="grid-container">
+          <Card title="Temperature" value={${data.temperature} °C} icon={<WiThermometer size={50} />} />
+          <Card title="Humidity" value={${data.humidity} %} icon={<WiHumidity size={50} />} />
+          <Card title="Pressure" value={${data.pressure} hPa} icon={<WiBarometer size={50} />} />
+          <Card title="Gas" value={${data.gas} ppm} icon={<FaGasPump size={50} />} />
+        </div>
+      </section>
 
-      {/* Buttons */}
+      <section>
+        <h2 className="section-title">Soil Moisture Data:</h2>
+        <div className="grid-container">
+          <Card title="Soil Moisture 1" value={${data.soilMoisture1} %} icon={<FaSeedling size={50} />} />
+          <Card title="Soil Moisture 2" value={${data.soilMoisture2} %} icon={<FaSeedling size={50} />} />
+        </div>
+      </section>
+
+      <section>
+        <h2 className="section-title">Solar Energy Data:</h2>
+        <div className="grid-container">
+          <Card title="Solar Power" value={${data.solarPower} W} icon={<WiSolarEclipse size={50} />} />
+          <Card title="Pump Power" value={${data.pumpPower} W} icon={<FaWater size={50} />} />
+          <Card title="Dripper Power" value={${data.dripperPower} W} icon={<FaWater size={50} />} />
+        </div>
+      </section>
+
       <div className="button-container">
         <Button onClick={() => handleButton1(!button1State)}>
-          {button1State ? "Turn off Pump" : "Turn On Pump"}
+          {button1State ? "Turn Off Pump" : "Turn On Pump"}
         </Button>
         <Button onClick={() => handleButton2(!button2State)}>
-          {button2State ? "Turn off Sprikler" : "Turn On Sprinkler"}
+          {button2State ? "Turn Off Sprinkler" : "Turn On Sprinkler"}
         </Button>
       </div>
     </div>
