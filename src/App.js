@@ -5,6 +5,7 @@ import Card from "./Card";
 import { WiSolarEclipse, WiHumidity, WiThermometer, WiBarometer } from "react-icons/wi";
 import { FaSeedling, FaWater, FaGasPump } from "react-icons/fa";
 import "./App.css";
+import teamImage from "./assets/team.jpg";
 
 const App = () => {
   const [data, setData] = useState({
@@ -33,7 +34,7 @@ const App = () => {
         ];
         const responses = await Promise.all(
           endpoints.map(endpoint =>
-            axios.get(https://green-house-server-53a4.onrender.com/${endpoint})
+            axios.get(`https://green-house-server-53a4.onrender.com/${endpoint}`)
           )
         );
 
@@ -83,43 +84,43 @@ const App = () => {
       <header className="text-center">
         <h1 className="title">Greenhouse Monitoring Dashboard</h1>
         <div className="header-background">
-          <img src="/images/team.jpg" alt="Greenhouse" className="header-image" />
+          <img src={teamImage} alt="Greenhouse" className="header-image" />
         </div>
       </header>
 
       <section>
         <h2 className="section-title">BME680 Values:</h2>
         <div className="grid-container">
-          <Card title="Temperature" value={${data.temperature} °C} icon={<WiThermometer size={50} />} />
-          <Card title="Humidity" value={${data.humidity} %} icon={<WiHumidity size={50} />} />
-          <Card title="Pressure" value={${data.pressure} hPa} icon={<WiBarometer size={50} />} />
-          <Card title="Gas" value={${data.gas} ppm} icon={<FaGasPump size={50} />} />
+          <Card title="Temperature" value={`${data.temperature} °C`} icon={<WiThermometer size={50} />} />
+          <Card title="Humidity" value={`${data.humidity} %`} icon={<WiHumidity size={50} />} />
+          <Card title="Pressure" value={`${data.pressure} hPa`} icon={<WiBarometer size={50} />} />
+          <Card title="Gas" value={`${data.gas} ppm`} icon={<FaGasPump size={50} />} />
         </div>
       </section>
 
       <section>
         <h2 className="section-title">Soil Moisture Data:</h2>
         <div className="grid-container">
-          <Card title="Soil Moisture 1" value={${data.soilMoisture1} %} icon={<FaSeedling size={50} />} />
-          <Card title="Soil Moisture 2" value={${data.soilMoisture2} %} icon={<FaSeedling size={50} />} />
+          <Card title="Soil Moisture 1" value={`${data.soilMoisture1} %`} icon={<FaSeedling size={50} />} />
+          <Card title="Soil Moisture 2" value={`${data.soilMoisture2} %`} icon={<FaSeedling size={50} />} />
         </div>
       </section>
 
       <section>
         <h2 className="section-title">Solar Energy Data:</h2>
         <div className="grid-container">
-          <Card title="Solar Power" value={${data.solarPower} W} icon={<WiSolarEclipse size={50} />} />
-          <Card title="Pump Power" value={${data.pumpPower} W} icon={<FaWater size={50} />} />
-          <Card title="Dripper Power" value={${data.dripperPower} W} icon={<FaWater size={50} />} />
+          <Card title="Solar Power" value={`${data.solarPower} W`} icon={<WiSolarEclipse size={50} />} />
+          <Card title="Pump Power" value={`${data.pumpPower} W`} icon={<FaWater size={50} />} />
+          <Card title="Dripper Power" value={`${data.dripperPower} W`} icon={<FaWater size={50} />} />
         </div>
       </section>
 
       <div className="button-container">
         <Button onClick={() => handleButton1(!button1State)}>
-          {button1State ? "Turn Off Pump" : "Turn On Pump"}
+          {button1State ? "Turn Off Button 1" : "Turn On Button 1"}
         </Button>
         <Button onClick={() => handleButton2(!button2State)}>
-          {button2State ? "Turn Off Sprinkler" : "Turn On Sprinkler"}
+          {button2State ? "Turn Off Button 2" : "Turn On Button 2"}
         </Button>
       </div>
     </div>
