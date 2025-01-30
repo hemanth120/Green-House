@@ -117,10 +117,10 @@ const App = () => {
 
       <div className="button-container">
         <Button onClick={() => handleButton1(!button1State)}>
-          {button1State ? "Turn Off Button 1" : "Turn On Button 1"}
+          {button1State ? "Turn Off Pump" : "Turn On Pump"}
         </Button>
         <Button onClick={() => handleButton2(!button2State)}>
-          {button2State ? "Turn Off Button 2" : "Turn On Button 2"}
+          {button2State ? "Turn Off Sprinkler" : "Turn On Sprinkler"}
         </Button>
       </div>
     </div>
